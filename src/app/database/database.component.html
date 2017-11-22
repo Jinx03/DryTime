@@ -1,3 +1,42 @@
-<p>
-  Database Template
-</p>
+
+
+
+<button (click)="show = !show">{{show ? 'Hide Poll' : 'Show Block of HTML'}}</button>
+
+
+
+
+	  
+
+
+<br>
+<div *ngIf="show">Just an example</div>
+
+ <div>
+   <form class="cntr box" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate *ngIf="show">
+      
+ 
+    
+    
+     
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Example field" ng-model="title" name="question" ngModel required #first="ngModel"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Example field" ng-model="optionOne" name="optOne" ngModel required #first="ngModel"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Example field" ng-model="optionTwo" name="optTwo" ngModel required #first="ngModel"></textarea>
+        </mat-form-field>
+
+       
+ 
+    </form>
+
+    <button (click)="getEmployees()">Get employees -> Check console for array</button>
+    <button (click)="postEmployee()">post employees -> Check console for response (need to set body to a valid json array)</button>
+    <button (click)="getEmployeeById()">get employees by id -> Check console for response</button>
+    <button (click)="getAll()">Get all tables and store them into variables</button>
+    
+
+    </div>
