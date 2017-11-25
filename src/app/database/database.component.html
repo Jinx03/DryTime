@@ -1,22 +1,154 @@
 
 
-
-<button (click)="show = !show">{{show ? 'Hide Poll' : 'Show Block of HTML'}}</button>
-
-
-
-
-	  
-
+<button (click)="show = !show">{{show ? 'Hide Example Inputs' : 'Show Example Inputs'}}</button>
 
 <br>
+<button (click)="employeeShow = !employeeShow">{{employeeShow ? 'Close Employee Table' : 'Show Employee Table'}}</button>
+<br>
+<div *ngIf="employeeShow">
+
+<h3>Employee Database</h3>
+<p-dataTable *ngIf="visible" [value]="Employees" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+<button (click)="vehicleShow = !vehicleShow">{{vehicleShow ? 'Close Vehicles Table' : 'Show Vehicles Table'}}</button>
+<br>
+<div *ngIf="vehicleShow">
+
+<h3>Vehicles Database</h3>
+<p-dataTable *ngIf="visible" [value]="Vehicles" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let vCol of vCols" [field]="vCol.field" [header]="vCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+<button (click)="accessShow = !accessShow">{{accessShow ? 'Close Accesses Table' : 'Show Accesses Table'}}</button>
+<br>
+<div *ngIf="accessShow">
+
+<h3>Access Database</h3>
+<p-dataTable *ngIf="visible" [value]="Accesses" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let aCol of aCols" [field]="aCol.field" [header]="aCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+
+<button (click)="jobShow = !jobShow">{{jobShow ? 'Close Jobs Table' : 'Show Jobs Table'}}</button>
+<br>
+<div *ngIf="jobShow">
+
+<h3>Job Database</h3>
+<p-dataTable *ngIf="visible" [value]="Jobs" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let jCol of jCols" [field]="jCol.field" [header]="jCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+
+<button (click)="assignedtoShow = !assignedtoShow">{{assignedtoShow ? 'Close Assigned_to Table' : 'Show Assigned_to Table'}}</button>
+<br>
+<div *ngIf="assignedtoShow">
+
+<h3>Access Database</h3>
+<p-dataTable *ngIf="visible" [value]="Assigned_tos" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let asCol of asCols" [field]="asCol.field" [header]="asCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+
+<button (click)="doingShow = !doingShow">{{doingShow ? 'Close Doing Table' : 'Show Doing Table'}}</button>
+<br>
+<div *ngIf="doingShow">
+
+<h3>Doing Database</h3>
+<p-dataTable *ngIf="visible" [value]="Doings" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let dCol of dCols" [field]="dCol.field" [header]="dCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+<button (click)="itemShow = !itemShow">{{itemShow ? 'Close Items Table' : 'Show Items Table'}}</button>
+<br>
+<div *ngIf="itemShow">
+
+<h3>Items Database</h3>
+<p-dataTable *ngIf="visible" [value]="Items" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let iCol of iCols" [field]="iCol.field" [header]="iCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+
+<button (click)="itemstoredShow = !itemstoredShow">{{itemstoredShow ? 'Close Items_stored Table' : 'Show Items_stored Table'}}</button>
+<br>
+<div *ngIf="itemstoredShow">
+
+<h3>Items_stored Database</h3>
+<p-dataTable *ngIf="visible" [value]="Items_stored" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let isCol of isCols" [field]="isCol.field" [header]="isCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+<button (click)="warehouseShow = !warehouseShow">{{warehouseShow ? 'Close Warehouses Table' : 'Show Warehouses Table'}}</button>
+<br>
+<div *ngIf="warehouseShow">
+
+<h3>Warehouses Database</h3>
+<p-dataTable *ngIf="visible" [value]="Warehouses" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let wCol of wCols" [field]="wCol.field" [header]="wCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+
+<button (click)="tfShow = !tfShow">{{tfShow ? 'Close Take_froms Table' : 'Show Take_froms Table'}}</button>
+<br>
+<div *ngIf="tfShow">
+
+<h3>Take_froms Database</h3>
+<p-dataTable *ngIf="visible" [value]="Take_froms" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+    <p-column *ngFor="let tfCol of tfCols" [field]="tfCol.field" [header]="tfCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+</p-dataTable>
+
+<br>
+
+</div>
+
+
+
+
+
+
+
 <div *ngIf="show">Just an example</div>
 
  <div>
    <form class="cntr box" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate *ngIf="show">
       
- 
-    
     
      
         <mat-form-field class="example-full-width">
@@ -33,10 +165,10 @@
  
     </form>
 
-    <button (click)="getEmployees()">Get employees -> Check console for array</button>
-    <button (click)="postEmployee()">post employees -> Check console for response (need to set body to a valid json array)</button>
-    <button (click)="getEmployeeById()">get employees by id -> Check console for response</button>
-    <button (click)="getAll()">Get all tables and store them into variables</button>
+    
+    <button (click)="log()">log Service</button>
+
+    <button (click)="postInit()">Post Initial Data Again</button>
     
 
     </div>

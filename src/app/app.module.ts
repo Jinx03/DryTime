@@ -9,19 +9,22 @@ import { NgModel } from '@angular/forms';
 
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
-
+import {DataTableModule,SharedModule} from 'primeng/primeng';
 
 
 import { AppComponent } from './app.component';
 import { CreatepollComponent } from './createpoll/createpoll.component';
 import {HttpClientModule} from '@angular/common/http';
 import { DatabaseComponent } from './database/database.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
+import { EmployeeServiceService } from './employee-service.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreatepollComponent,
-    DatabaseComponent
+    DatabaseComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +34,12 @@ import { DatabaseComponent } from './database/database.component';
     NgSemanticModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SmartTableModule,
+    DataTableModule,
+    SharedModule
   ],
-  providers: [],
+  providers: [EmployeeServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

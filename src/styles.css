@@ -7,15 +7,40 @@
 }
 
     .bg{
-        background-color: #41A5A5;
+        background-color: #90c8f7;
     }
 
 .cntr{
     min-width: 150px;
-    max-width: 500px;
+    max-width: 1000px;
     width: 100%;
     margin:0 auto;
 }
+
+.ui-datatable {
+    text-align: left;
+}
+
+.ui-datatable-thead {
+    text-align: left;
+}
+
+
+[_nghost-c2] table{
+    background-color: #69a6d1;
+    padding: 20px;
+    border-radius: 7px;
+    border-collapse: unset !important;
+}
+
+
+[_nghost-c2] table tr td, [_nghost-c2] table tr th {
+    font-size: .875em;
+    margin: 0;
+    padding: .5em 1em;
+    border: 1px solid #e9ebec;
+}
+ 
 
 .ui.inverted.menu{
 border: 0 solid transparent;
