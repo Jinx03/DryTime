@@ -14,7 +14,7 @@
   <div class="pusher">
 
   <sm-menu title="DryTime" class="inverted" background="#34373c" logo="https://i.imgur.com/gia9AHp.png">
-    <a sm-item *ngFor="let item of items" [icon]="item.icon" onclick="employeeShow();">{{item?.title}}</a>
+    <a sm-item *ngFor="let item of items" [icon]="item.icon" onclick="this.DatabaseComponent.test();">{{item?.title}}</a>
 
     <sm-menu class="menu right secondary">
         <a sm-item href="#/elements/menu" 

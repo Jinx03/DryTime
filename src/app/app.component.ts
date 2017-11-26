@@ -13,6 +13,7 @@ import {DatabaseComponent} from './database/database.component';
 export class AppComponent {
   title = 'DryTime';
 
+  
   //items = ["1", "2", "3", "4"];
   items = [{
     "title": 'Employees',

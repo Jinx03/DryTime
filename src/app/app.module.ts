@@ -9,7 +9,8 @@ import { NgModel } from '@angular/forms';
 
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
-import {DataTableModule,SharedModule} from 'primeng/primeng';
+import {DataTableModule,SharedModule,DialogModule,InputTextModule,InputTextareaModule,ButtonModule,DataGridModule,OverlayPanelModule} from 'primeng/primeng';
+
 
 
 import { AppComponent } from './app.component';
@@ -17,8 +18,9 @@ import { CreatepollComponent } from './createpoll/createpoll.component';
 import {HttpClientModule} from '@angular/common/http';
 import { DatabaseComponent } from './database/database.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { EmployeeServiceService } from './employee-service.service';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,13 @@ import { EmployeeServiceService } from './employee-service.service';
     HttpClientModule,
     Ng2SmartTableModule,
     DataTableModule,
-    SharedModule
+    SharedModule,
+    MatTabsModule,
+    DialogModule,
+    InputTextareaModule,
+    ButtonModule,
+    DataGridModule,
+    OverlayPanelModule
   ],
   providers: [EmployeeServiceService],
   bootstrap: [AppComponent]

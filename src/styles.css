@@ -10,11 +10,29 @@
         background-color: #90c8f7;
     }
 
+.halfcntr{
+    min-width: 150px;
+    max-width: 640px;
+    width: 100%;
+    margin:0 auto;
+}
+
 .cntr{
     min-width: 150px;
     max-width: 1000px;
     width: 100%;
     margin:0 auto;
+}
+
+
+.ui-widget input {
+    width: 100%;
+}
+
+.tabs{
+    background-color: rgb(166, 182, 211);
+    font-weight: 400;
+    color: black;
 }
 
 .ui-datatable {

@@ -1,89 +1,79 @@
+<div class="halfcntr">
 
 
-<button (click)="show = !show">{{show ? 'Hide Example Inputs' : 'Show Example Inputs'}}</button>
+    <button (click)="postInit()">Post Initial Data Again</button>
+    
+ 
 
-<br>
-<button (click)="employeeShow = !employeeShow">{{employeeShow ? 'Close Employee Table' : 'Show Employee Table'}}</button>
-<br>
 <div *ngIf="employeeShow">
+    <div class="content-section implementation"></div>
+    <h3>Employee Database</h3>
+    <p-dataTable *ngIf="visible" [value]="Employees" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+        <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></p-footer>          
+      </p-dataTable>
 
-<h3>Employee Database</h3>
-<p-dataTable *ngIf="visible" [value]="Employees" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
-    <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-</p-dataTable>
-
-<br>
-
-</div>
-
-<button (click)="vehicleShow = !vehicleShow">{{vehicleShow ? 'Close Vehicles Table' : 'Show Vehicles Table'}}</button>
-<br>
-<div *ngIf="vehicleShow">
-
-<h3>Vehicles Database</h3>
-<p-dataTable *ngIf="visible" [value]="Vehicles" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
-    <p-column *ngFor="let vCol of vCols" [field]="vCol.field" [header]="vCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-</p-dataTable>
-
-<br>
-
-</div>
-
-<button (click)="accessShow = !accessShow">{{accessShow ? 'Close Accesses Table' : 'Show Accesses Table'}}</button>
-<br>
-<div *ngIf="accessShow">
-
-<h3>Access Database</h3>
-<p-dataTable *ngIf="visible" [value]="Accesses" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
-    <p-column *ngFor="let aCol of aCols" [field]="aCol.field" [header]="aCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-</p-dataTable>
-
-<br>
-
-</div>
-
-
-<button (click)="jobShow = !jobShow">{{jobShow ? 'Close Jobs Table' : 'Show Jobs Table'}}</button>
-<br>
-<div *ngIf="jobShow">
-
-<h3>Job Database</h3>
-<p-dataTable *ngIf="visible" [value]="Jobs" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
-    <p-column *ngFor="let jCol of jCols" [field]="jCol.field" [header]="jCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-</p-dataTable>
-
-<br>
-
-</div>
+      <p-dialog header="Add New Employee" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+          <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newEntryData">
+              <div class="ui-grid-row">
+                  <div class="ui-grid-col-4"><label for="vin">ssn</label></div>
+                  <div class="ui-grid-col-8"><input pInputText id="ssn" [(ngModel)]="newEntryData[0].ssn" /></div>
+              </div>
+              <div class="ui-grid-row">
+                  <div class="ui-grid-col-4"><label for="year">Name</label></div>
+                  <div class="ui-grid-col-8"><input pInputText id="Name" [(ngModel)]="newEntryData[0].Name" /></div>
+              </div>
+              <div class="ui-grid-row">
+                  <div class="ui-grid-col-4"><label for="brand">Phone</label></div>
+                  <div class="ui-grid-col-8"><input pInputText id="Phone" [(ngModel)]="newEntryData[0].Phone" /></div>
+              </div>
+              <div class="ui-grid-row">
+                  <div class="ui-grid-col-4"><label for="color">Office_num</label></div>
+                  <div class="ui-grid-col-8"><input pInputText id="Office_num" [(ngModel)]="newEntryData[0].Office_num" /></div>
+              </div>
+              <div class="ui-grid-row">
+                  <div class="ui-grid-col-4"><label for="password">Password</label></div>
+                  <div class="ui-grid-col-8"><input pInputText id="Password" [(ngModel)]="newEntryData[0].Password" /></div>
+              </div>
+          </div>
+          <p-footer>
+              <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                  <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+                  <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+              </div>
+          </p-footer>
+      </p-dialog>
+    
+    <br>
+    
+    </div>
+      
 
 
-<button (click)="assignedtoShow = !assignedtoShow">{{assignedtoShow ? 'Close Assigned_to Table' : 'Show Assigned_to Table'}}</button>
-<br>
-<div *ngIf="assignedtoShow">
-
-<h3>Access Database</h3>
-<p-dataTable *ngIf="visible" [value]="Assigned_tos" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
-    <p-column *ngFor="let asCol of asCols" [field]="asCol.field" [header]="asCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-</p-dataTable>
-
-<br>
-
-</div>
 
 
-<button (click)="doingShow = !doingShow">{{doingShow ? 'Close Doing Table' : 'Show Doing Table'}}</button>
-<br>
-<div *ngIf="doingShow">
 
-<h3>Doing Database</h3>
-<p-dataTable *ngIf="visible" [value]="Doings" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
-    <p-column *ngFor="let dCol of dCols" [field]="dCol.field" [header]="dCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-</p-dataTable>
 
-<br>
+      
+      
 
-</div>
 
+ 
+     <br>
+      <div *ngIf="jobShow">
+      
+      <h3>Job Database</h3>
+      <p-dataTable *ngIf="visible" [value]="Jobs" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+          <p-column *ngFor="let jCol of jCols" [field]="jCol.field" [header]="jCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+      </p-dataTable>
+      
+      <br>
+      
+      </div>
+
+
+
+ 
 <button (click)="itemShow = !itemShow">{{itemShow ? 'Close Items Table' : 'Show Items Table'}}</button>
 <br>
 <div *ngIf="itemShow">
@@ -96,8 +86,7 @@
 <br>
 
 </div>
-
-
+    
 <button (click)="itemstoredShow = !itemstoredShow">{{itemstoredShow ? 'Close Items_stored Table' : 'Show Items_stored Table'}}</button>
 <br>
 <div *ngIf="itemstoredShow">
@@ -124,13 +113,72 @@
 
 </div>
 
+    
+
+
+      <button (click)="vehicleShow = !vehicleShow">{{vehicleShow ? 'Close Vehicles Table' : 'Show Vehicles Table'}}</button>
+      <br>
+      <div *ngIf="vehicleShow">
+      
+      <h3>Vehicles Database</h3>
+      <p-dataTable *ngIf="visible" [value]="Vehicles" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+          <p-column *ngFor="let vCol of vCols" [field]="vCol.field" [header]="vCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+      </p-dataTable>
+      
+      <br>
+      
+      </div>
+
+
+
+  
+      <button (click)="accessShow = !accessShow">{{accessShow ? 'Close Accesses Table' : 'Show Accesses Table'}}</button>
+      <br>
+      <div *ngIf="accessShow">
+      
+      <h3>Access Database</h3>
+      <p-dataTable *ngIf="visible" [value]="Accesses" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+          <p-column *ngFor="let aCol of aCols" [field]="aCol.field" [header]="aCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+      </p-dataTable>
+      
+      <br>
+      
+      </div>
+
+      <button (click)="assignedtoShow = !assignedtoShow">{{assignedtoShow ? 'Close Assigned_to Table' : 'Show Assigned_to Table'}}</button>
+      <br>
+      <div *ngIf="assignedtoShow">
+      
+      <h3>Access Database</h3>
+      <p-dataTable *ngIf="visible" [value]="Assigned_tos" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+          <p-column *ngFor="let asCol of asCols" [field]="asCol.field" [header]="asCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+      </p-dataTable>
+      
+      <br>
+      
+      </div>
+      
+
+      <button (click)="doingShow = !doingShow">{{doingShow ? 'Close Doing Table' : 'Show Doing Table'}}</button>
+      <br>
+      <div *ngIf="doingShow">
+      
+      <h3>Doing Database</h3>
+      <p-dataTable *ngIf="visible" [value]="Doings" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+          <p-column *ngFor="let dCol of dCols" [field]="dCol.field" [header]="dCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+      </p-dataTable>
+      
+      <br>
+      
+      </div>
+
 
 <button (click)="tfShow = !tfShow">{{tfShow ? 'Close Take_froms Table' : 'Show Take_froms Table'}}</button>
 <br>
 <div *ngIf="tfShow">
 
 <h3>Take_froms Database</h3>
-<p-dataTable *ngIf="visible" [value]="Take_froms" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
+<p-dataTable *ngIf="visible" [value]="Items_In_Use" sortMode="multiple" [resizableColumns]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]">
     <p-column *ngFor="let tfCol of tfCols" [field]="tfCol.field" [header]="tfCol.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
 </p-dataTable>
 
@@ -138,6 +186,9 @@
 
 </div>
 
+  
+
+</div>
 
 
 
@@ -166,9 +217,5 @@
     </form>
 
     
-    <button (click)="log()">log Service</button>
-
-    <button (click)="postInit()">Post Initial Data Again</button>
     
-
     </div>

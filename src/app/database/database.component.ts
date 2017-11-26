@@ -4,20 +4,89 @@ import {NgForm} from '@angular/forms';
 import { NgSemanticModule } from "ng-semantic";
 import { HttpClient } from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { EmployeeServiceService } from '../employee-service.service';
+
 
 @Component({
   selector: 'app-database',
   templateUrl: './database.component.html',
   styleUrls: ['./database.component.css']
 })
+
+
 export class DatabaseComponent implements OnInit {
 
   
+  
+  displayDialog: boolean;
   results: string = 'blep';
   body: string;
   
+  newEntryData =  [{
+    "SSN": 0,
+    "Name": "",
+    "Phone": 0,
+    "Office_num": 0,
+    "Password": ""
+  }];
+  newEntry: boolean;
+  tempEntryData =  [{
+    "SSN": 0,
+    "Name": "",
+    "Phone": "",
+    "Office_num": 0,
+    "Password": ""
+  }];
+
+  //////////////////////////////////////////            Implementation of add/delete/clone features.
+
+
+  showDialogToAdd() {
+    this.newEntry = true;
+   // this. = new Employee();
+    this.displayDialog = true;
+}
+
+
+
+save() {
+    this.postEmployee();
+    //console.log(this.newEntryData);
+    this.displayDialog = false;
+    this.getAllAction('Employees');
+}
+
+
+delete() {
+    this.delEmployee(); 
+    this.displayDialog = false;
+    this.getAllAction('Employees');
+}    
+/*
+onRowSelect(event) {
+    this.newCar = false;
+    this.car = this.cloneCar(event.data);
+    this.displayDialog = true;
+}
+
+cloneCar(c: Car): Car {
+    let car = new PrimeCar();
+    for(let prop in c) {
+        car[prop] = c[prop];
+    }
+    return car;
+}
+
+findSelectedCarIndex(): number {
+    return this.cars.indexOf(this.selectedCar);
+}
+*/
+
+  //////////////////////////////////////////
+
+
+
 
   source: Ng2SmartTableModule;
 
@@ -69,16 +138,19 @@ export class DatabaseComponent implements OnInit {
 
 
   //getAll() stores the full tables in these variables when called.
+
   Employees: string;
   Accesses: string;
   Assigned_tos: string;
   Doings: string;
   Items: string;
-  Items_stored: string;
+  Items_In_Use: string;
   Jobs: string;
   Take_froms: string;
   Vehicles: string;
   Warehouses: string;
+
+
   sortO: number = 1;
   
   sortF: string = '';
@@ -124,8 +196,22 @@ export class DatabaseComponent implements OnInit {
       email: "Rey.Padberg@rosamond.biz"
     }
   ];
+
+  employeeShow: boolean = true;
+  jobShow: boolean = true;
+  itemShow: boolean = true;
+  itemstoredShow: boolean = true;
+  warehouseShow: boolean = true;
+  vehicleShow: boolean = true;
+  accessShow: boolean = true;
+  assignedtoShow: boolean = true;
+  doingShow: boolean = true;
+  tfShow: boolean = true;
   
-  
+  test(){
+    this.employeeShow = !this.employeeShow;
+
+  }
   loading: boolean;
   
      // cars: Car[];
@@ -166,7 +252,10 @@ export class DatabaseComponent implements OnInit {
     this.Employees = this.Employees.slice();
   }
   
-  
+  showEmployee(){
+    this.employeeShow = !this.employeeShow;
+    alert('test');
+  }
 
   getEmployeeById(): void {
     this.http.get('http://localhost:3000/api/Employees/' + this.id).subscribe(data => {
@@ -175,10 +264,21 @@ export class DatabaseComponent implements OnInit {
     });
   }
 
-  postEmployee(): void {
-    this.http.post('http://localhost:3000/api/Employees', this.body).subscribe(data => {
+  delEmployee(): void {
+    this.http.delete('http://localhost:3000/api/Employees/' + this.newEntryData[0].SSN).subscribe(data => {
       this.results = JSON.stringify(data);
       console.log(this.results);
+
+    this.getAllAction('Employees');
+    });
+  }
+
+  postEmployee(): void {
+    this.http.post('http://localhost:3000/api/Employees', this.newEntryData).subscribe(data => {
+      this.results = JSON.stringify(data);
+     // console.log(this.results);
+
+    this.getAllAction('Employees');
     });
   }
 
@@ -208,7 +308,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
    this.getAllAction('Items');
    this.getAllAction('Items_stored');
    this.getAllAction('Jobs');
-   this.getAllAction('Take_froms');
+   this.getAllAction('Items_In_Use');
    this.getAllAction('Vehicles');
    this.getAllAction('Warehouses');
  
@@ -241,15 +341,15 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
   postInit()
   {
     this.send = [{
-      "ssn": 123456789,
+      "SSN": 123456789,
       "Name": "Branden Canny",
-      "Phone": "601 - 754 - 3555",
+      "Phone": 6017543555,
       "Office_num": 1,
       "Password": "Cancan03"
     },{
-      "ssn": 987654321,
+      "SSN": 987654321,
       "Name": "Presley Canny",
-      "Phone": "601-754-7184",
+      "Phone": 6017547184,
       "Office_num": 1,
       "Password": "Imadoggo3"
     }
@@ -259,7 +359,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     this.postInitData('Employees', this.send[1]);
 
     this.sendtwo = [{
-      "IDN": "1d",
+      "IDN": 1,
       "Model": "XXL",
       "Type": "Dehumidifier",
       "Brand": "Blue Dri",
@@ -268,7 +368,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     
     
     {
-      "IDN": "3d",
+      "IDN": 3,
       "Model": "XL",
       "Type": "Dehumidifier",
       "Brand": "Blue Dri",
@@ -276,7 +376,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     },
     
     {
-      "IDN": "11d",
+      "IDN": 11,
       "Model": "XL",
       "Type": "Dehumidifier",
       "Brand": "Phoenix R125",
@@ -285,7 +385,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     
     
     {
-      "IDN": "15d",
+      "IDN": 15,
       "Model": "XL",
       "Type": "Dehumidifier",
       "Brand": "Prieaz Evolution",
@@ -293,7 +393,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     },
     
     {
-      "IDN": "1a",
+      "IDN": 1,
       "Model": "Centrifugal Air Mover",
       "Type": "Air Mover",
       "Brand": "Blue Dri",
@@ -302,7 +402,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     
     
     {
-      "IDN": "41a",
+      "IDN": 41,
       "Model": "Centrifugal Air Mover",
       "Type": "Air Mover",
       "Brand": "Grizzly",
@@ -311,7 +411,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     
     
     {
-      "IDN": "61a",
+      "IDN": 61,
       "Model": "Centrifugal Air Mover",
       "Type": "Air Mover",
       "Brand": "Blue Dri",
@@ -319,7 +419,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     },
     
     {
-      "IDN": "121a",
+      "IDN": 121,
       "Model": "Low Pro Air Mover Radial",
       "Type": "Air Mover",
       "Brand": "Phoenix Evolution",
@@ -328,81 +428,84 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
 
     this.sendthree = [
       {
-        "IDN": "1d",
-        "WID": "WID"
+        "IDN": 1,
+        "WID": 1,
+        "Stock": 2
       },
       
       {
-        "IDN": "1a",
-        "WID": "WID"
+        "IDN": 5,
+        "WID": 5,
+        "Stock": 3
       }];
 
       this.sendfour = [{
-        "SSN": "123-45-6789",
-        "SID": "1s",
-        "IDN": "1d",
-        "VID": "1v"
+        "SSN": 1,
+        "SID": 1,
+        "IDN": 1,
+        "VID": 1
       }];
       this.sendfive = [{
-        "SSN": "123-45-6789",
-        "SID": "1s",
-        "IDN": "1d",
-        "VID": "1v"
+        "SSN": 1,
+        "SID": 1
       }];
       this.sendsix = [{
-        "VID": "1v",
-        "SID": "1s"
+        "VID": 1,
+        "SID": 1
       }];
       this.sendseven = [{
-        "SID": "1s",
+        "SID": 1,
         "Loc": "Brookhaven",
         "Type": "Water Damage",
-        "Date": "Semptember 13, 2017"
+        "Date": 2
       },
       
       {
-        "SID": "2s",
+        "SID": 2,
         "Loc": "McComb",
         "Type": "Fire Damage",
-        "Date": "December 15, 2016"
+        "Date": 3
       }];
 
       this.sendeight = [{
-        "WID": "1w",
-        "VID": "1v"
+        "IDN": 1,
+        "WID": 1,
+        "VID": 1,
+        "Count": 1
       }];
       this.sendnine = [{
-        "VID": "1v",
-        "Capacity": "Empty",
+        "VID": 1,
+        "Capacity": 2,
         "Model": "Van"
       },
       
       {
-        "VID": "1t",
-        "Capacity": "Empty",
+        "VID": 2,
+        "Capacity": 3,
         "Model": "Truck"
       },
       
       {
-        "VID": "1ct",
-        "Capacity": "Empty",
+        
+        "VID": 3,
+        "Capacity": 0,
         "Model": "Covered Trailer"
       },
       
       {
-        "VID": "1ft",
-        "Capacity": "Full",
+        "VID": 4,
+        "Capacity": 50,
         "Model": "Flatbed Trailer"
       }
       ];
       this.sendten = [{
-        "WID": "1w",
+        "WID": 1,
         "Capacity": 100,
         "Loc": "Brookhaven"
       },
       
       {
-        "WID": "2w",
+        "WID": 2,
         "Capacity": 0,
         "Loc": "Brookhaven"
       }];
@@ -429,7 +532,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
     this.postInitData('Jobs', this.sendseven[0]);
     this.postInitData('Jobs', this.sendseven[1]);
 
-    this.postInitData('Take_froms', this.sendeight[0]);
+    this.postInitData('Items_In_Use', this.sendeight[0]);
 
     this.postInitData('Vehicles', this.sendnine[0]);
     this.postInitData('Vehicles', this.sendnine[1]);
@@ -463,7 +566,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
 
     
     this.cols = [
-      {field: 'ssn', header: 'SSN'},
+      {field: 'SSN', header: 'SSN'},
       {field: 'Name', header: 'Name'},
       {field: 'Phone', header: 'Phone #'},
       {field: 'Office_num', header: 'Office #'},
@@ -473,8 +576,7 @@ this.http.get('http://localhost:3000/api/' + table).subscribe(data => {
   this.vCols = [
     {field: 'VID', header: 'VID'},
     {field: 'Capacity', header: 'Capacity'},
-    {field: 'Model', header: 'Model #'},
-    {field: 'id', header: 'ID #'}
+    {field: 'Model', header: 'Model #'}
 ];
 
 this.iCols = [
@@ -482,13 +584,13 @@ this.iCols = [
   {field: 'Model', header: 'Model'},
   {field: 'Type', header: 'Type'},
   {field: 'Brand', header: 'Brand'},
-  {field: 'Total', header: 'Total'},
-  {field: 'id', header: 'ID #'}
+  {field: 'Total', header: 'Total'}
 ];
 
 this.isCols = [
   {field: 'IDN', header: 'IDN'},
   {field: 'WID', header: 'Warehouse ID'},
+  {field: 'Stock', header: 'Stock'},
   {field: 'id', header: 'ID #'}
 ];
 
@@ -503,8 +605,6 @@ this.aCols = [
 this.asCols = [
   {field: 'SSN', header: 'SSN #'},
   {field: 'SID', header: 'Site ID'},
-  {field: 'IDN', header: 'IDN'},
-  {field: 'VID', header: 'Vehicle ID'},
   {field: 'id', header: 'ID #'}
 ];
 
@@ -518,21 +618,21 @@ this.jCols = [
   {field: 'SID', header: 'Site ID'},
   {field: 'Loc', header: 'Location'},
   {field: 'Type', header: 'Type'},
-  {field: 'Date', header: 'Date'},
-  {field: 'id', header: 'ID #'}
+  {field: 'Date', header: 'Date'}
 ];
 
 this.tfCols = [
+  {field: 'IDN', header: 'IDN'},
   {field: 'WID', header: 'Warehouse ID'},
   {field: 'VID', header: 'Vehicle ID'},
+  {field: 'Count', header: 'Count'},
   {field: 'id', header: 'ID #'}
 ];
 
 this.wCols = [
   {field: 'WID', header: 'Warehouse ID'},
   {field: 'Capacity', header: 'Capacity'},
-  {field: 'Loc', header: 'Location'},
-  {field: 'id', header: 'ID #'}
+  {field: 'Loc', header: 'Location'}
 ];
 
 }
